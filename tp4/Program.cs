@@ -2,7 +2,7 @@
 
 class KodePos
 {
-    private Dictionary<string,string> tabelKodePos = new Dictionary<string, string>
+    private Dictionary<string, string> tabelKodePos = new Dictionary<string, string>
     {
         {"Batununggal", "40266"},
         {"Kujangsari", "40287"},
@@ -15,5 +15,90 @@ class KodePos
         {"Kebonwaru", "40272"},
         {"Maleer", "40274"},
         {"Samoja", "40273"}
+    };
+
+    public string GetKodePos(string kelurahan)
+    {
+        if (tabelKodePos.ContainsKey(kelurahan))
+        {
+            return tabelKodePos[kelurahan];
+        }
+        else
+        {
+            return "Kode Pos tidak ditemukan";
+        }
+    }
+
+    }
+    class DoorMachine
+    {
+        public enum State { terkunci, terbuka}
+        private State currentState;
+
+        public DoorMachine()
+        {
+            currentState = State.terkunci;
+            Console.WriteLine("Pintu terkunci");
+        }
+
+        public void KunciPintu()
+        {
+            if (currentState == State.terkunci)
+            {
+                Console.WriteLine("Pintu Sudah Terkunci");
+            }
+            else
+            {
+                currentState = State.terbuka;
+                Console.WriteLine("pintu tidak terkunci");
+            }
+        }
+
+        public void BukaPintu()
+        {
+            if (currentState == State.terbuka)
+            {
+                Console.WriteLine("pintu terbuka");
+            }
+            else
+            {
+                currentState = State.terkunci;
+                Console.WriteLine("pintu terkunci");
+            }
+        }
+
+    class Program
+    {
+        static void Main()
+        {
+            KodePos kodePos = new KodePos();
+
+            Console.Write("Masukkan nama kelurahan: ");
+            string kelurahan = Console.ReadLine().ToLower();
+
+            Console.WriteLine($"Kode pos untuk {kelurahan} adalah: {kodePos.GetKodePos(kelurahan)}");
+
+            //bagian 2
+            DoorMachine pintu = new DoorMachine();
+
+            while (true)
+            {
+                Console.WriteLine("\nKetik 'buka' untuk membuka pintu, atau 'kunci' untuk mengunci:");
+                string input = Console.ReadLine().ToLower();
+
+                if (input == "buka")
+                {
+                    pintu.BukaPintu();
+                }
+                else if (input == "kunci")
+                {
+                    pintu.KunciPintu();
+                }
+                else
+                {
+                    Console.WriteLine("invalid, masukkan 'buka' atau 'kunci");
+                }
+            }
+        }
     }
 }
