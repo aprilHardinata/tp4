@@ -30,42 +30,43 @@ class KodePos
     }
 
     }
-    class DoorMachine
-    {
-        public enum State { terkunci, terbuka}
-        private State currentState;
+class DoorMachine
+{
+    public enum State { terkunci, terbuka }
+    private State currentState;
 
-        public DoorMachine()
+    public DoorMachine()
+    {
+        currentState = State.terkunci;
+        Console.WriteLine("Pintu terkunci");
+    }
+
+    public void KunciPintu()
+    {
+        if (currentState == State.terkunci)
         {
-            currentState = State.terkunci;
+            Console.WriteLine("Pintu sudah terkunci");
+        }
+        else
+        {
+            currentState = State.terbuka;
             Console.WriteLine("Pintu terkunci");
         }
+    }
 
-        public void KunciPintu()
+    public void BukaPintu()
+    {
+        if (currentState == State.terbuka)
         {
-            if (currentState == State.terkunci)
-            {
-                Console.WriteLine("Pintu Sudah Terkunci");
-            }
-            else
-            {
-                currentState = State.terbuka;
-                Console.WriteLine("pintu tidak terkunci");
-            }
+            Console.WriteLine("Pintu sudah terbuka");
         }
-
-        public void BukaPintu()
+        else
         {
-            if (currentState == State.terbuka)
-            {
-                Console.WriteLine("pintu terbuka");
-            }
-            else
-            {
-                currentState = State.terkunci;
-                Console.WriteLine("pintu terkunci");
-            }
+            currentState = State.terkunci;
+            Console.WriteLine("Pintu tidak terkunci");
         }
+    }
+}
 
     class Program
     {
@@ -73,18 +74,13 @@ class KodePos
         {
             KodePos kodePos = new KodePos();
 
-            Console.Write("Masukkan nama kelurahan: ");
-            string kelurahan = Console.ReadLine().ToLower();
+            string kelurahan = "Mengger";
 
             Console.WriteLine($"Kode pos untuk {kelurahan} adalah: {kodePos.GetKodePos(kelurahan)}");
 
             //bagian 2
             DoorMachine pintu = new DoorMachine();
-
-            while (true)
-            {
-                Console.WriteLine("\nKetik 'buka' untuk membuka pintu, atau 'kunci' untuk mengunci:");
-                string input = Console.ReadLine().ToLower();
+                string input = "buka";
 
                 if (input == "buka")
                 {
@@ -94,11 +90,6 @@ class KodePos
                 {
                     pintu.KunciPintu();
                 }
-                else
-                {
-                    Console.WriteLine("invalid, masukkan 'buka' atau 'kunci");
-                }
-            }
         }
     }
-}
+
